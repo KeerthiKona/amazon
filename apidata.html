@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Product Cards</title>
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="navbar">
+        <ul>
+            <li><a href="#"><span>Amazon</span></a></li>
+            <li><a href="#"> Location</a></li>
+            
+            <li><a href="#">Sell</a></li>
+            <li><a href="#">Help</a></li>
+        </ul>
+
+        <div id="search">
+            <input type="text" placeholder="Search...">
+            <a href="#"><i class='bx bx-search-alt-2'></i></a>
+        </div>
+        <div id="orders">
+            <a href="#">Sign in</a>
+            <a href="#">Orders</a>
+        </div>
+
+        <div id="cart">
+            <a href="#"><i class='bx bx-cart'></i></a>
+        </div>
+    </div>
+    <div id="navbar-secondary">
+        <ul>
+            <li><a href="#">Today's Deals</a></li>
+            <li><a href="#">Customer Service</a></li>
+            <li><a href="apidata.html">Mobiles</a></li>
+            <li><a href="#">Electronics</a></li>
+            <li><a href="#">Prime</a></li>
+            <li><a href="#">New Releases</a></li>
+        </ul>
+        <p>Great Indian Festival <span><a href="#">&nbsp;Shop Now</a></span></p>
+    </div>
+    <div class="image-container">
+        <img src="assets/image6.gif">
+    </div>
+    <div id="product-container"></div>
+    
+   
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/elevatezoom/2.2.3/jquery.elevatezoom.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            
+            $.ajax({
+                url: "https://dummyjson.com/products",
+                method: "GET",
+                dataType: "json",
+                success: function(data) {
+                    // Iterate through the data and create cards
+                    data.products.forEach(function(product) {
+                        var card ='<div class="container">'+'<div class="card-image">' +'<img src="' + product.thumbnail +  '" class="image">'
+                             + '</div>' + '<div class="card">' +
+                            '<h2 class="card-title">' + product.title + '</h2>' +
+                            
+                            '<p class="card-data"> $' + product.price + '</p>' +
+                            '<p class="card-text">' + product.description + '</p>' +
+                            '<a href="#">'+'<i class="bx bxs-star" >'+'</i>'+'</a>'+
+                            '<a href="#">'+'<i class="bx bxs-star" >'+'</i>'+'</a>'+
+                            '<a href="#">'+'<i class="bx bxs-star" >'+'</i>'+'</a>'+
+                            '<a href="#">'+'<i class="bx bxs-star" >'+'</i>'+'</a>'+
+                            '<a href="#">'+'<i class="bx bxs-star" >'+'</i>'+'</a>'+
+                            '<p class="card-text">'+'<span>Offer:</span> ' + product.discountPercentage + '% Off </p>' +
+                            '<div class="card-bottom">'+
+                            
+                            '<button class="btn">'+'Add to cart'+'</button>'+
+                            '</div>'+
+                            '</div>'+'</div>'
+
+                        $('#product-container').append(card);
+
+                        $('.image').elevateZoom({
+                        zoomType:"inner",
+                        cursor:"crosshair",
+                        zoomWindowFadeIn:500,
+                        zoomWindowFadeOut:750
+                        });
+                    
+                    });
+                },
+                error: function() {
+                    $('#product-container').html("Error loading data.");
+                }
+            });
+            
+
+        });
+
+        
+    </script>
+</body>
+</html>
